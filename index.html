@@ -14,7 +14,9 @@
       margin: 0;
       padding: 0;
       font-family: 'Poppins', sans-serif;
-      background-color: #121212;
+      background: linear-gradient(135deg, #0f0f23, #1a1a2e, #16213e, #0f3460);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
       color: white;
       display: flex;
       flex-direction: column;
@@ -23,11 +25,48 @@
       height: 100vh;
       overflow: hidden;
       text-align: center;
+      position: relative;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Floating particles background */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 20% 80%, rgba(255, 107, 157, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 143, 171, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 107, 157, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
     }
 
     h1 {
-      font-size: 2.2rem;
+      font-size: 2.5rem;
       margin: 20px;
+      background: linear-gradient(135deg, #ff6b9d, #ff8fab, #ff6b9d);
+      background-size: 200% 200%;
+      animation: textGlow 3s ease-in-out infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 30px rgba(255, 107, 157, 0.5);
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes textGlow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
 
     .buttons {
@@ -38,30 +77,58 @@
     }
 
     button {
-      padding: 12px 24px;
-      font-size: 1.1rem;
+      padding: 15px 30px;
+      font-size: 1.2rem;
       border: none;
-      border-radius: 8px;
+      border-radius: 25px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
-      max-width: 150px;
+      max-width: 180px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      overflow: hidden;
+    }
+
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    button:hover::before {
+      left: 100%;
     }
 
     #yesBtn {
-      background-color: #4CAF50;
+      background: linear-gradient(135deg, #4CAF50, #45a049);
       color: white;
-      box-shadow: 0 0 10px #4CAF50;
+      box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+      border: 2px solid rgba(76, 175, 80, 0.3);
     }
 
     #yesBtn:hover {
-      transform: scale(1.1);
+      transform: scale(1.05) translateY(-3px);
+      box-shadow: 0 12px 35px rgba(76, 175, 80, 0.6);
+      border-color: rgba(76, 175, 80, 0.6);
     }
 
     #noBtn {
-      background-color: #e53935;
+      background: linear-gradient(135deg, #e53935, #d32f2f);
       color: white;
-      box-shadow: 0 0 10px #e53935;
+      box-shadow: 0 8px 25px rgba(229, 57, 53, 0.4);
+      border: 2px solid rgba(229, 57, 53, 0.3);
+    }
+
+    #noBtn:hover {
+      transform: scale(1.05) translateY(-3px);
+      box-shadow: 0 12px 35px rgba(229, 57, 53, 0.6);
+      border-color: rgba(229, 57, 53, 0.6);
     }
 
     .message {
@@ -119,6 +186,14 @@
       }
     }
 
+    @media (max-width: 768px) {
+      .questionnaire {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 15px;
+      }
+    }
+
     @media (max-width: 480px) {
       h1 {
         font-size: 1.6rem;
@@ -133,6 +208,122 @@
       .message {
         font-size: 1.2rem;
       }
+
+      .questionnaire {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        padding: 10px;
+        max-width: 100%;
+      }
+
+      .question-section {
+        padding: 15px;
+        min-height: 200px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .question-section h3 {
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+        line-height: 1.2;
+      }
+
+      .question-section textarea {
+        padding: 8px;
+        font-size: 0.85rem;
+        flex: 1;
+        min-height: 80px;
+      }
+
+      .single-question {
+        padding: 15px;
+      }
+
+      .single-question .question-section {
+        padding: 20px;
+      }
+
+      .single-question .question-section h3 {
+        font-size: 1.2rem;
+      }
+
+      .single-question .question-section textarea {
+        padding: 15px;
+        font-size: 1rem;
+        min-height: 100px;
+      }
+
+      .question-nav {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .prev-btn, .next-btn {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+      }
+
+      .next-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        margin-top: 15px;
+        width: 100%;
+      }
+
+      .contract-section {
+        padding: 15px;
+      }
+
+      .contract-content {
+        padding: 20px;
+      }
+
+      .contract-content h3 {
+        font-size: 1.5rem;
+      }
+
+      .signatures {
+        padding: 20px;
+      }
+
+      .signature-line {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .signature-line span {
+        min-width: auto;
+      }
+
+      .signature-line input {
+        width: 100%;
+        font-size: 0.9rem;
+        padding: 8px 12px;
+      }
+
+      .submit-btn {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+      }
+
+      .contract-content {
+        padding: 20px;
+      }
+
+      .contract-content h3 {
+        font-size: 1.3rem;
+      }
+
+      .contract-terms h4 {
+        font-size: 1rem;
+      }
+
+      .contract-terms p {
+        font-size: 0.85rem;
+        padding-left: 15px;
+      }
     }
 
     .shake {
@@ -145,6 +336,692 @@
       50% { transform: translate(-3px, 0px) rotate(1deg); }
       75% { transform: translate(3px, 2px) rotate(0deg); }
       100% { transform: translate(1px, -1px) rotate(1deg); }
+    }
+
+    /* Questionnaire Styles */
+    .questionnaire {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .question-section {
+      background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+      padding: 25px;
+      border-radius: 15px;
+      border: 1px solid #333;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: fit-content;
+    }
+
+    .question-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.4);
+    }
+
+    .question-section h3 {
+      color: #ff6b9d;
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+      text-align: center;
+    }
+
+    .question-section textarea {
+      width: 100%;
+      background: #1a1a1a;
+      border: 2px solid #333;
+      border-radius: 10px;
+      padding: 15px;
+      color: white;
+      font-size: 1rem;
+      resize: vertical;
+      transition: border-color 0.3s ease;
+    }
+
+    .question-section textarea:focus {
+      outline: none;
+      border-color: #ff6b9d;
+      box-shadow: 0 0 15px rgba(255,107,157,0.3);
+    }
+
+    .next-btn {
+      background: linear-gradient(135deg, #ff6b9d, #ff8fab);
+      color: white;
+      border: 2px solid rgba(255, 107, 157, 0.3);
+      padding: 18px 35px;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 8px 25px rgba(255,107,157,0.4);
+      margin-top: 25px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .next-btn:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 35px rgba(255,107,157,0.6);
+      border-color: rgba(255, 107, 157, 0.6);
+    }
+
+    .next-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.6s;
+    }
+
+    .next-btn:hover::before {
+      left: 100%;
+    }
+
+    /* Single Question Styles */
+    .single-question {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .single-question .question-section {
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, rgba(42, 42, 42, 0.9), rgba(26, 26, 26, 0.9));
+      padding: 35px;
+      border-radius: 20px;
+      border: 2px solid rgba(255, 107, 157, 0.2);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 20px rgba(255, 107, 157, 0.1);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .single-question .question-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 107, 157, 0.1), transparent);
+      transition: left 0.6s;
+    }
+
+    .single-question .question-section:hover::before {
+      left: 100%;
+    }
+
+    .single-question .question-section:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.5), 0 0 30px rgba(255, 107, 157, 0.2);
+      border-color: rgba(255, 107, 157, 0.4);
+    }
+
+    .single-question .question-section h3 {
+      color: #ff6b9d;
+      margin-bottom: 25px;
+      font-size: 1.6rem;
+      text-align: center;
+      background: linear-gradient(135deg, #ff6b9d, #ff8fab);
+      background-size: 200% 200%;
+      animation: textGlow 3s ease-in-out infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 20px rgba(255, 107, 157, 0.3);
+      font-weight: 700;
+    }
+
+    .single-question .question-section textarea {
+      width: 100%;
+      background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(20, 20, 20, 0.9));
+      border: 2px solid rgba(255, 107, 157, 0.3);
+      border-radius: 15px;
+      padding: 25px;
+      color: white;
+      font-size: 1.1rem;
+      resize: vertical;
+      transition: all 0.3s ease;
+      min-height: 140px;
+      backdrop-filter: blur(5px);
+      box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .single-question .question-section textarea:focus {
+      outline: none;
+      border-color: #ff6b9d;
+      box-shadow: 0 0 25px rgba(255,107,157,0.4), inset 0 2px 10px rgba(0,0,0,0.3);
+      transform: scale(1.01);
+    }
+
+    .question-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .prev-btn {
+      background: linear-gradient(135deg, #666, #555);
+      color: white;
+      border: 2px solid rgba(102, 102, 102, 0.3);
+      padding: 18px 35px;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .prev-btn:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+      background: linear-gradient(135deg, #777, #666);
+      border-color: rgba(102, 102, 102, 0.6);
+    }
+
+    .prev-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.6s;
+    }
+
+    .prev-btn:hover::before {
+      left: 100%;
+    }
+
+    /* Contract Styles */
+    .contract-section {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 20px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .contract-content {
+      background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(15, 15, 15, 0.95));
+      padding: 40px;
+      border-radius: 25px;
+      border: 2px solid rgba(255, 107, 157, 0.3);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 30px rgba(255, 107, 157, 0.1);
+      backdrop-filter: blur(15px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contract-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 107, 157, 0.05), transparent);
+      transition: left 0.8s;
+    }
+
+    .contract-content:hover::before {
+      left: 100%;
+    }
+
+    /* Custom scrollbar for contract */
+    .contract-section::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .contract-section::-webkit-scrollbar-track {
+      background: #1a1a1a;
+      border-radius: 10px;
+    }
+
+    .contract-section::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #ff6b9d, #ff8fab);
+      border-radius: 10px;
+    }
+
+    .contract-section::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #ff8fab, #ff6b9d);
+    }
+
+    .contract-content h3 {
+      color: #ff6b9d;
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 25px;
+      background: linear-gradient(135deg, #ff6b9d, #ff8fab);
+      background-size: 200% 200%;
+      animation: textGlow 3s ease-in-out infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 25px rgba(255,107,157,0.6);
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .contract-content p {
+      color: #e0e0e0;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .contract-terms {
+      margin: 30px 0;
+    }
+
+    .contract-terms h4 {
+      color: #ff8fab;
+      margin: 20px 0 10px 0;
+      font-size: 1.2rem;
+    }
+
+    .contract-terms p {
+      color: #ccc;
+      margin: 8px 0;
+      padding-left: 20px;
+    }
+
+    .signatures {
+      margin-top: 40px;
+      padding: 25px;
+      background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+      border-radius: 15px;
+      border: 1px solid #333;
+    }
+
+    .signature-line {
+      display: flex;
+      align-items: center;
+      margin: 15px 0;
+      gap: 15px;
+    }
+
+    .signature-line span {
+      color: #ff6b9d;
+      font-weight: bold;
+      min-width: 150px;
+    }
+
+    .signature-line input {
+      flex: 1;
+      background: #1a1a1a;
+      border: 2px solid #333;
+      border-radius: 8px;
+      padding: 10px 15px;
+      color: white;
+      font-size: 1rem;
+    }
+
+    .signature-line input:focus {
+      outline: none;
+      border-color: #ff6b9d;
+      box-shadow: 0 0 10px rgba(255,107,157,0.3);
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #4CAF50, #45a049);
+      color: white;
+      border: 2px solid rgba(76, 175, 80, 0.3);
+      padding: 20px 40px;
+      border-radius: 30px;
+      font-size: 1.3rem;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 10px 30px rgba(76,175,80,0.4);
+      margin-top: 30px;
+      width: 100%;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 20px 40px rgba(76,175,80,0.6);
+      border-color: rgba(76, 175, 80, 0.6);
+    }
+
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.6s;
+    }
+
+    .submit-btn:hover::before {
+      left: 100%;
+    }
+
+    .final-message {
+      text-align: center;
+      padding: 50px;
+      background: linear-gradient(135deg, rgba(42, 42, 42, 0.95), rgba(26, 26, 26, 0.95));
+      border-radius: 25px;
+      border: 2px solid rgba(255, 107, 157, 0.3);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.5), 0 0 40px rgba(255, 107, 157, 0.1);
+      max-width: 900px;
+      margin: 0 auto;
+      backdrop-filter: blur(15px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .final-message::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 107, 157, 0.05), transparent);
+      transition: left 1s;
+    }
+
+    .final-message:hover::before {
+      left: 100%;
+    }
+
+    .success-animation {
+      margin-bottom: 30px;
+    }
+
+    .success-animation h3 {
+      color: #ff6b9d;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #ff6b9d, #ff8fab);
+      background-size: 200% 200%;
+      animation: textGlow 3s ease-in-out infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 30px rgba(255,107,157,0.6);
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .success-icon {
+      font-size: 4rem;
+      animation: bounce 1.5s infinite;
+      filter: drop-shadow(0 0 20px rgba(255, 107, 157, 0.8));
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+
+    .success-content {
+      margin-bottom: 40px;
+      padding: 25px;
+      background: linear-gradient(135deg, #1a1a1a, #0f0f0f);
+      border-radius: 15px;
+      border: 1px solid #333;
+    }
+
+    .success-content h4 {
+      color: #ff8fab;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+    }
+
+    .success-content p {
+      color: #e0e0e0;
+      font-size: 1.1rem;
+      margin: 12px 0;
+      line-height: 1.6;
+    }
+
+    .baby-image-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(15, 15, 15, 0.9));
+      border-radius: 15px;
+      border: 1px solid rgba(255, 107, 157, 0.2);
+      text-align: center;
+    }
+
+    .baby-image-section h4 {
+      color: #ff8fab;
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .baby-image {
+      max-width: 400px;
+      border-radius: 25px;
+      box-shadow: 0 15px 35px rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 3px solid rgba(255, 107, 157, 0.3);
+    }
+
+    .baby-image:hover {
+      transform: scale(1.08) rotate(2deg);
+      box-shadow: 0 25px 50px rgba(255,255,255,0.4), 0 0 30px rgba(255, 107, 157, 0.3);
+      border-color: rgba(255, 107, 157, 0.6);
+    }
+
+    .baby-image-small {
+      max-width: 200px;
+      width: 100%;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 2px solid rgba(255, 107, 157, 0.3);
+      display: block;
+      margin: 0 auto;
+    }
+
+    .baby-image-small:hover {
+      transform: scale(1.05) rotate(1deg);
+      box-shadow: 0 15px 35px rgba(255,255,255,0.4), 0 0 20px rgba(255, 107, 157, 0.3);
+      border-color: rgba(255, 107, 157, 0.6);
+    }
+
+    .love-hearts {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      animation: heartBeat 2s ease-in-out infinite;
+      flex-wrap: wrap;
+    }
+
+    .love-hearts span {
+      font-size: 1.5rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .love-hearts span:nth-child(1) { animation-delay: 0s; }
+    .love-hearts span:nth-child(2) { animation-delay: 0.5s; }
+    .love-hearts span:nth-child(3) { animation-delay: 1s; }
+    .love-hearts span:nth-child(4) { animation-delay: 1.5s; }
+    .love-hearts span:nth-child(5) { animation-delay: 2s; }
+
+    @keyframes heartBeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .image-link {
+      display: inline-block;
+      transition: all 0.3s ease;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .image-link:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 25px rgba(255,107,157,0.4);
+    }
+
+    .image-caption {
+      color: #e0e0e0;
+      font-size: 1rem;
+      margin-top: 15px;
+      font-style: italic;
+    }
+
+    .love-message {
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(15, 15, 15, 0.9));
+      border-radius: 15px;
+      border: 1px solid rgba(255, 107, 157, 0.2);
+      text-align: center;
+    }
+
+    .love-message h4 {
+      color: #ff6b9d;
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px rgba(255,107,157,0.5);
+      text-align: center;
+    }
+
+    .love-message p {
+      color: #e0e0e0;
+      font-size: 1rem;
+      margin: 10px 0;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    /* --- RESPONSIVE DESIGN IMPROVEMENTS --- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    .single-question,
+    .contract-section,
+    .final-message {
+      max-width: 95vw;
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+    h1, h3, h4 {
+      word-break: break-word;
+    }
+    .question-section,
+    .contract-content,
+    .final-message {
+      padding: 5vw 3vw;
+    }
+    .baby-image {
+      max-width: 90vw;
+      width: 100%;
+      height: auto;
+      min-width: 0;
+    }
+    button, .next-btn, .prev-btn, .submit-btn {
+      width: 100%;
+      max-width: 350px;
+      min-width: 120px;
+      font-size: 1rem;
+      margin: 10px auto;
+      display: block;
+    }
+    textarea {
+      width: 100%;
+      min-width: 0;
+      font-size: 1rem;
+      padding: 1em;
+      box-sizing: border-box;
+      resize: vertical;
+    }
+    .question-nav {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      justify-content: space-between;
+    }
+    @media (max-width: 900px) {
+      h1 { font-size: 2rem; }
+      .contract-content, .final-message, .single-question { padding: 4vw 2vw; }
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 1.3rem; }
+      .contract-content, .final-message, .single-question { padding: 2vw 1vw; }
+      .baby-image { max-width: 98vw; }
+      .baby-image-small { max-width: 150px; }
+      .love-hearts span { font-size: 1.2rem; }
+      .love-message h4 { font-size: 1.2rem; }
+      .love-message p { font-size: 0.9rem; }
+      .baby-image-section h4 { font-size: 1.1rem; }
+      .question-section h3 { font-size: 1.1rem; }
+      .contract-content h3, .final-message h3 { font-size: 1.2rem; }
+      button, .next-btn, .prev-btn, .submit-btn { font-size: 0.95rem; }
+      .question-nav { flex-direction: column; gap: 10px; }
+      
+      /* Fix mobile scrolling and layout issues */
+      body { 
+        min-height: 100vh;
+        overflow-x: hidden;
+        padding: 10px;
+      }
+      
+      .single-question {
+        padding: 15px 10px;
+        margin: 0;
+      }
+      
+      .question-section {
+        padding: 20px 15px;
+        margin-bottom: 20px;
+      }
+      
+      .question-section textarea {
+        min-height: 100px;
+        padding: 15px;
+        font-size: 0.95rem;
+      }
+      
+      .next-btn {
+        margin-top: 15px;
+        padding: 12px 20px;
+      }
     }
   </style>
 </head>
@@ -184,35 +1061,285 @@
     });
 
     yesBtn.addEventListener('click', () => {
-      document.body.classList.remove('shake'); // Remove shake class when Yes is picked
+      document.body.classList.remove('shake');
       yesBtn.style.display = "none";
       noBtn.style.display = "none";
-      question.textContent = "Why did you accept to be my girlfriend?";
-
-      // Create form
-      const form = document.createElement('form');
-      form.style.marginTop = "30px";
-      form.innerHTML = `
-        <textarea id="reasonInput" rows="3" style="width:90%;max-width:400px;border-radius:8px;padding:10px;font-size:1rem;" placeholder="Your reason..."></textarea>
-        <br>
-        <button type="submit" style="margin-top:15px;background:#4CAF50;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:1.1rem;cursor:pointer;">Submit</button>
-      `;
-      message.textContent = "";
-      message.appendChild(form);
-
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const reason = document.getElementById('reasonInput').value.trim();
-        if (reason.length === 0) {
-          alert("Please share your reason!");
-          return;
-        }
-        localStorage.setItem('herReason', reason);
-        message.innerHTML = `<div style="margin-bottom:18px;">"${reason}"</div>Officially Mrs Akinloye!😍`;
-        question.textContent = "";
-        heartEffect();
-      });
+      showQuestion(1);
     });
+
+    let currentQuestion = 1;
+    let answers = {
+      likes: '',
+      dislikes: '',
+      improvements: ''
+    };
+
+    function showQuestion(questionNumber) {
+      currentQuestion = questionNumber;
+      
+      if (questionNumber === 1) {
+        question.textContent = "Let's get to know each other better! 💕";
+        message.innerHTML = `
+          <div class="single-question">
+            <div class="question-section">
+              <h3>What do you like about me? 💖</h3>
+              <textarea id="likesInput" rows="6" placeholder="Tell me what makes me special to you..."></textarea>
+            </div>
+            <button id="nextBtn" class="next-btn">Next Question ➡️</button>
+          </div>
+        `;
+        
+        // Restore previous answer if going back
+        if (answers.likes) {
+          document.getElementById('likesInput').value = answers.likes;
+        }
+        
+        document.getElementById('nextBtn').addEventListener('click', () => {
+          const answer = document.getElementById('likesInput').value.trim();
+          if (!answer) {
+            alert("Please answer the question before proceeding!");
+            return;
+          }
+          answers.likes = answer;
+          showQuestion(2);
+        });
+      } else if (questionNumber === 2) {
+        question.textContent = "Question 2 of 3 💕";
+        message.innerHTML = `
+          <div class="single-question">
+            <div class="question-section">
+              <h3>What don't you like about me? 🤔</h3>
+              <textarea id="dislikesInput" rows="6" placeholder="Be honest, I want to improve..."></textarea>
+            </div>
+            <div class="question-nav">
+              <button id="prevBtn" class="prev-btn">⬅️ Previous</button>
+              <button id="nextBtn" class="next-btn">Next Question ➡️</button>
+            </div>
+          </div>
+        `;
+        
+        // Restore previous answer if going back
+        if (answers.dislikes) {
+          document.getElementById('dislikesInput').value = answers.dislikes;
+        }
+        
+        document.getElementById('prevBtn').addEventListener('click', () => {
+          const answer = document.getElementById('dislikesInput').value.trim();
+          answers.dislikes = answer;
+          showQuestion(1);
+        });
+        
+        document.getElementById('nextBtn').addEventListener('click', () => {
+          const answer = document.getElementById('dislikesInput').value.trim();
+          if (!answer) {
+            alert("Please answer the question before proceeding!");
+            return;
+          }
+          answers.dislikes = answer;
+          showQuestion(3);
+        });
+      } else if (questionNumber === 3) {
+        question.textContent = "Question 3 of 3 💕";
+        message.innerHTML = `
+          <div class="single-question">
+            <div class="question-section">
+              <h3>What do you think I can improve on? 📈</h3>
+              <textarea id="improvementsInput" rows="6" placeholder="Help me become better for you..."></textarea>
+            </div>
+            <div class="question-nav">
+              <button id="prevBtn" class="prev-btn">⬅️ Previous</button>
+              <button id="nextBtn" class="next-btn">Next: Our Contract 📜</button>
+            </div>
+          </div>
+        `;
+        
+        // Restore previous answer if going back
+        if (answers.improvements) {
+          document.getElementById('improvementsInput').value = answers.improvements;
+        }
+        
+        document.getElementById('prevBtn').addEventListener('click', () => {
+          const answer = document.getElementById('improvementsInput').value.trim();
+          answers.improvements = answer;
+          showQuestion(2);
+        });
+        
+        document.getElementById('nextBtn').addEventListener('click', () => {
+          const answer = document.getElementById('improvementsInput').value.trim();
+          if (!answer) {
+            alert("Please answer the question before proceeding!");
+            return;
+          }
+          answers.improvements = answer;
+          showContract();
+        });
+      }
+    }
+    
+    function showContract() {
+      if (!answers.likes || !answers.dislikes || !answers.improvements) {
+        alert("Please answer all questions before proceeding!");
+        return;
+      }
+      
+      question.textContent = "Our Relationship Contract 📜";
+      
+      const contractSection = document.createElement('div');
+      contractSection.className = 'contract-section';
+      contractSection.innerHTML = `
+        <div class="contract-content">
+          <h3>💕 RELATIONSHIP AGREEMENT 💕</h3>
+          <p>This contract is entered into between Emmanuel and Arike on this day, establishing our commitment to each other.</p>
+          
+          <div class="contract-terms">
+            <h4>Article 1: Fidelity & Trust</h4>
+            <p>• Both parties agree to remain completely faithful and loyal to each other</p>
+            <p>• No form of cheating, emotional or physical, will be tolerated</p>
+            <p>• Complete transparency in all interactions with others</p>
+            
+            <h4>Article 2: Communication & Honesty</h4>
+            <p>• Both parties must tell each other everything, no secrets allowed</p>
+            <p>• Always confide in each other and never hide anything</p>
+            <p>• Open and honest communication about feelings, concerns, and daily life</p>
+            
+            <h4>Article 3: Mutual Support & Understanding</h4>
+            <p>• Never deny each other emotional support when needed</p>
+            <p>• Be there for each other in good times and bad times</p>
+            <p>• Respect each other's boundaries while maintaining closeness</p>
+            
+            <h4>Article 4: Growth & Improvement</h4>
+            <p>• Support each other's personal growth and development</p>
+            <p>• Work together to improve the relationship continuously</p>
+            <p>• Accept constructive criticism and work on areas of improvement</p>
+            
+            <h4>Article 5: Love & Commitment</h4>
+            <p>• Show love and affection regularly</p>
+            <p>• Make time for each other despite busy schedules</p>
+            <p>• Prioritize the relationship above all other relationships</p>
+          </div>
+          
+          <div class="signatures">
+            <div class="signature-line">
+              <span>Emmanuel's Signature:</span>
+              <input type="text" id="emmanuelSignature" value="Emmanuel" readonly>
+            </div>
+            <div class="signature-line">
+              <span>Arike's Signature:</span>
+              <input type="text" id="arikeSignature" placeholder="Type your name here..." required>
+            </div>
+          </div>
+          
+          <button id="submitContract" class="submit-btn">Sign & Submit Our Contract 💝</button>
+        </div>
+      `;
+      
+      message.innerHTML = "";
+      message.appendChild(contractSection);
+      
+      // Add a small delay to ensure the contract is properly rendered
+      setTimeout(() => {
+        const submitButton = document.getElementById('submitContract');
+        if (submitButton) {
+          submitButton.addEventListener('click', submitFinalContract);
+        } else {
+          console.error('Submit button not found');
+        }
+      }, 100);
+    }
+    
+    function submitFinalContract() {
+      // Get the signature input with error handling
+      const arikeSignatureInput = document.getElementById('arikeSignature');
+      
+      if (!arikeSignatureInput) {
+        alert("Error: Signature field not found. Please refresh the page and try again.");
+        return;
+      }
+      
+      const arikeSignature = arikeSignatureInput.value.trim();
+      
+      if (!arikeSignature) {
+        alert("Please sign the contract with your name!");
+        return;
+      }
+      
+      // Check if we have all the answers stored
+      if (!answers.likes || !answers.dislikes || !answers.improvements) {
+        alert("Error: Questionnaire answers not found. Please go back and complete all questions.");
+          return;
+      }
+      
+      // Prepare data for form submission
+      const formData = new FormData();
+      formData.append('likes', answers.likes);
+      formData.append('dislikes', answers.dislikes);
+      formData.append('improvements', answers.improvements);
+      formData.append('arikeSignature', arikeSignature);
+      formData.append('emmanuelSignature', 'Emmanuel');
+      
+      // Submit to Formspree
+      fetch('https://formspree.io/f/mvgqbpyn', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          showFinalMessage();
+        } else {
+          alert('There was an error submitting the form. Please try again.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('There was an error submitting the form. Please try again.');
+      });
+    }
+    
+    function showFinalMessage() {
+      question.textContent = "Contract Successfully Signed! 💕";
+      message.innerHTML = `
+        <div class="final-message">
+          <div class="success-animation">
+            <h3>🎉 CONGRATULATIONS! 🎉</h3>
+            <div class="success-icon">✅</div>
+          </div>
+          
+          <div class="success-content">
+            <h4>Our Relationship Contract Has Been Signed!</h4>
+            <p>Thank you for accepting to be my girlfriend, Arike! 💖</p>
+            <p>I promise to love you with all my heart and soul forever! 😍</p>
+            <p>You are the most beautiful person I've ever met, and I'm so lucky to have you! 💕</p>
+            <p>Let's build an amazing future together! 🌟</p>
+          </div>
+          
+          <div class="baby-image-section">
+            <h4>Our Picture 💕</h4>
+            <a href="./babe.jpg" target="_blank" class="image-link">
+              <img src="./babe.jpg" alt="Our Beautiful Baby" class="baby-image-small">
+            </a>
+            <p class="image-caption">This is us! 💖</p>
+          </div>
+          
+          <div class="love-message">
+            <h4>💕 I LOVE YOU SO MUCH ARIKE! 💕</h4>
+            <p>You are my everything, my soulmate, my best friend, and my forever love! 💝</p>
+            <p>I will always be here for you, support you, and love you unconditionally! 💕</p>
+            <p>Thank you for making me the happiest man alive! 😍</p>
+            <div class="love-hearts">
+              <span>💕</span>
+              <span>💖</span>
+              <span>💝</span>
+              <span>💕</span>
+              <span>💖</span>
+            </div>
+          </div>
+        </div>
+      `;
+      heartEffect();
+    }
 
     function moveButtonRandomly(button) {
       const btnWidth = button.offsetWidth;
