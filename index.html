@@ -1189,7 +1189,7 @@
       contractSection.innerHTML = `
         <div class="contract-content">
           <h3>💕 RELATIONSHIP AGREEMENT 💕</h3>
-          <p>This contract is entered into between Emmanuel and Arike on this day, establishing our commitment to each other.</p>
+          <p>This contract is entered into between Emmanuel and Anike on this day, establishing our commitment to each other.</p>
           
           <div class="contract-terms">
             <h4>Article 1: Fidelity & Trust</h4>
@@ -1224,8 +1224,8 @@
               <input type="text" id="emmanuelSignature" value="Emmanuel" readonly>
             </div>
             <div class="signature-line">
-              <span>Arike's Signature:</span>
-              <input type="text" id="arikeSignature" placeholder="Type your name here..." required>
+              <span>Anike's Signature:</span>
+              <input type="text" id="anikeSignature" placeholder="Type your name here..." required>
             </div>
           </div>
           
@@ -1236,7 +1236,7 @@
       message.innerHTML = "";
       message.appendChild(contractSection);
       
-      // Add a small delay to ensure the contract is properly rendered
+      
       setTimeout(() => {
         const submitButton = document.getElementById('submitContract');
         if (submitButton) {
@@ -1248,36 +1248,35 @@
     }
     
     function submitFinalContract() {
-      // Get the signature input with error handling
-      const arikeSignatureInput = document.getElementById('arikeSignature');
+      const anikeSignatureInput = document.getElementById('anikeSignature');
       
-      if (!arikeSignatureInput) {
+      if (!anikeSignatureInput) {
         alert("Error: Signature field not found. Please refresh the page and try again.");
         return;
       }
       
-      const arikeSignature = arikeSignatureInput.value.trim();
+      const anikeSignature = anikeSignatureInput.value.trim();
       
-      if (!arikeSignature) {
+      if (!anikeSignature) {
         alert("Please sign the contract with your name!");
         return;
       }
       
-      // Check if we have all the answers stored
+      
       if (!answers.likes || !answers.dislikes || !answers.improvements) {
         alert("Error: Questionnaire answers not found. Please go back and complete all questions.");
           return;
       }
       
-      // Prepare data for form submission
+      
       const formData = new FormData();
       formData.append('likes', answers.likes);
       formData.append('dislikes', answers.dislikes);
       formData.append('improvements', answers.improvements);
-      formData.append('arikeSignature', arikeSignature);
+      formData.append('anikeSignature', anikeSignature);
       formData.append('emmanuelSignature', 'Emmanuel');
       
-      // Submit to Formspree
+            
       fetch('https://formspree.io/f/mvgqbpyn', {
         method: 'POST',
         body: formData,
@@ -1309,14 +1308,14 @@
           
           <div class="success-content">
             <h4>Our Relationship Contract Has Been Signed!</h4>
-            <p>Thank you for accepting to be my girlfriend, Arike! 💖</p>
+            <p>Thank you for accepting to be my girlfriend, Anike! 💖</p>
             <p>I promise to love you with all my heart and soul forever! 😍</p>
             <p>You are the most beautiful person I've ever met, and I'm so lucky to have you! 💕</p>
             <p>Let's build an amazing future together! 🌟</p>
           </div>
           
           <div class="baby-image-section">
-            <h4>Our Picture 💕</h4>
+            <h4>My beautiful angel 💕</h4>
             <a href="./babe.jpg" target="_blank" class="image-link">
               <img src="./babe.jpg" alt="Our Beautiful Baby" class="baby-image-small">
             </a>
@@ -1324,7 +1323,7 @@
           </div>
           
           <div class="love-message">
-            <h4>💕 I LOVE YOU SO MUCH ARIKE! 💕</h4>
+            <h4>💕 I LOVE YOU SO MUCH ANIKE! 💕</h4>
             <p>You are my everything, my soulmate, my best friend, and my forever love! 💝</p>
             <p>I will always be here for you, support you, and love you unconditionally! 💕</p>
             <p>Thank you for making me the happiest man alive! 😍</p>
