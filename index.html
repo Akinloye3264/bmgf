@@ -1189,7 +1189,7 @@
       contractSection.innerHTML = `
         <div class="contract-content">
           <h3>💕 RELATIONSHIP AGREEMENT 💕</h3>
-          <p>This contract is entered into between Emmanuel and Anike on this day, establishing our commitment to each other.</p>
+          <p>This contract is entered into between Emmanuel and Arike on this day, establishing our commitment to each other.</p>
           
           <div class="contract-terms">
             <h4>Article 1: Fidelity & Trust</h4>
@@ -1224,8 +1224,8 @@
               <input type="text" id="emmanuelSignature" value="Emmanuel" readonly>
             </div>
             <div class="signature-line">
-              <span>Anike's Signature:</span>
-              <input type="text" id="anikeSignature" placeholder="Type your name here..." required>
+              <span>Arike's Signature:</span>
+              <input type="text" id="arikeSignature" placeholder="Type your name here..." required>
             </div>
           </div>
           
@@ -1248,16 +1248,16 @@
     }
     
     function submitFinalContract() {
-      const anikeSignatureInput = document.getElementById('anikeSignature');
+      const arikeSignatureInput = document.getElementById('arikeSignature');
       
-      if (!anikeSignatureInput) {
+      if (!arikeSignatureInput) {
         alert("Error: Signature field not found. Please refresh the page and try again.");
         return;
       }
       
-      const anikeSignature = anikeSignatureInput.value.trim();
+      const arikeSignature = arikeSignatureInput.value.trim();
       
-      if (!anikeSignature) {
+      if (!arikeSignature) {
         alert("Please sign the contract with your name!");
         return;
       }
@@ -1273,7 +1273,7 @@
       formData.append('likes', answers.likes);
       formData.append('dislikes', answers.dislikes);
       formData.append('improvements', answers.improvements);
-      formData.append('anikeSignature', anikeSignature);
+      formData.append('arikeSignature', arikeSignature);
       formData.append('emmanuelSignature', 'Emmanuel');
       
             
@@ -1308,14 +1308,14 @@
           
           <div class="success-content">
             <h4>Our Relationship Contract Has Been Signed!</h4>
-            <p>Thank you for accepting to be my girlfriend, Anike! 💖</p>
+            <p>Thank you for accepting to be my girlfriend, Arike! 💖</p>
             <p>I promise to love you with all my heart and soul forever! 😍</p>
             <p>You are the most beautiful person I've ever met, and I'm so lucky to have you! 💕</p>
             <p>Let's build an amazing future together! 🌟</p>
           </div>
           
           <div class="baby-image-section">
-            <h4>My beautiful angel 💕</h4>
+            <h4>Love of my life 💕</h4>
             <a href="./babe.jpg" target="_blank" class="image-link">
               <img src="./babe.jpg" alt="Our Beautiful Baby" class="baby-image-small">
             </a>
@@ -1323,7 +1323,7 @@
           </div>
           
           <div class="love-message">
-            <h4>💕 I LOVE YOU SO MUCH ANIKE! 💕</h4>
+            <h4>💕 I LOVE YOU SO MUCH ARIKE! 💕</h4>
             <p>You are my everything, my soulmate, my best friend, and my forever love! 💝</p>
             <p>I will always be here for you, support you, and love you unconditionally! 💕</p>
             <p>Thank you for making me the happiest man alive! 😍</p>
